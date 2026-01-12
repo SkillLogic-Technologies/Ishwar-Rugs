@@ -25,7 +25,7 @@ export default function Navigation() {
             <Link href="/">
               <div className="flex items-center space-x-3 cursor-pointer">
                 <img
-                  src="https://i.postimg.cc/fy162xqr/Chat-GPT-Image-Jul-10-2025-02-12-10-PM.png"
+                  src="https://res.cloudinary.com/dzufohihn/image/upload/v1767769166/Chat-GPT-Image-Jul-10-2025-02-12-10-PM_hzqpxx.png"
                   alt="Ishwar Rugs Logo"
                   className="h-10 w-auto"
                 />

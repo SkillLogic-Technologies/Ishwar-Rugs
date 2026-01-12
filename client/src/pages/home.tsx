@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { Play } from "lucide-react";
 import { Link } from "wouter";
 import { api } from "@/lib/api";
-import HeroCarousel from "@/components/hero-carousel";
-import { useState } from "react"; // ✅ Add this
+import { useState } from "react";
 import CollectionGrid from "@/components/collection-grid";
 import { Button } from "@/components/ui/button";
-import Carousel3D from "@/components/Carousel3D";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import HeroCarousel from "@/components/hero-carousel"
+import Carousel3D from "@/components/Carousel3D"
+
 
 export default function Home() {
   // ✅ This MUST be declared before any JSX using isPlaying
@@ -39,8 +40,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Carousel */}
-      <HeroCarousel />
+
+        <HeroCarousel />
+
 
       {/* Brand Introduction */}
       <section className="py-32 px-4 bg-gradient-to-b from-background via-luxury-brown to-background">
@@ -59,10 +61,9 @@ export default function Home() {
         <div className="w-full mt-20">
           <div className="w-full h-[48rem] overflow-hidden rounded-3xl">
             <img
-              src="https://i.postimg.cc/Pf7bj1wZ/ChatGPT_Image_Jun_20,_2025,_11_18_41_PM.png"
+              src="https://res.cloudinary.com/dzufohihn/image/upload/v1767609165/ChatGPT_Image_Jun_20__2025__11_18_41_PM_jtcjfu.png"
               alt="Intro placeholder"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-3xl"
-              loading="lazy"
             />
           </div>
         </div>
@@ -96,10 +97,10 @@ export default function Home() {
               </div>
               <div className="order-1 lg:order-2 grid grid-cols-2 gap-8">
                 {[
-                  "https://i.postimg.cc/k4Mk1fGk/Chat-GPT-Image-Jun-30-2025-10-10-58-PM.png",
-                  "https://i.postimg.cc/VLY5mcTt/Chat-GPT-Image-Jun-30-2025-10-22-23-PM.png",
-                  "https://i.postimg.cc/QNnxGWp2/Chat-GPT-Image-Jun-30-2025-10-28-44-PM.png",
-                  "https://i.postimg.cc/xTMvXYT1/Chat-GPT-Image-Jun-30-2025-10-35-12-PM.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609253/Chat-GPT-Image-Jun-30-2025-10-10-58-PM_gjkyze.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609300/Chat-GPT-Image-Jun-30-2025-10-22-23-PM_qggba0.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609351/Chat-GPT-Image-Jun-30-2025-10-28-44-PM_agk2tu.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609405/Chat-GPT-Image-Jun-30-2025-10-35-12-PM_mki29b.png",
                 ].map((src, i) => (
                   <Link
                     key={i}
@@ -120,10 +121,10 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="grid grid-cols-2 gap-8">
                 {[
-                  "https://i.postimg.cc/FR7YSt3R/Chat-GPT-Image-Jun-30-2025-10-43-47-PM.png",
-                  "https://i.postimg.cc/tTnpN9Ts/Chat-GPT-Image-Jun-30-2025-11-01-28-PM.png",
-                  "https://i.postimg.cc/9MmyDNFg/Chat-GPT-Image-Jun-30-2025-11-06-16-PM.png",
-                  "https://i.postimg.cc/tTbGWWLM/Chat-GPT-Image-Jun-30-2025-11-10-05-PM.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609460/Chat-GPT-Image-Jun-30-2025-10-43-47-PM_lqypvf.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609498/Chat-GPT-Image-Jun-30-2025-11-01-28-PM_f0ennn.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609543/Chat-GPT-Image-Jun-30-2025-11-06-16-PM_cbqt7a.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609562/Chat-GPT-Image-Jun-30-2025-11-10-05-PM_fyr3ds.png",
                 ].map((src, i) => (
                   <Link
                     key={i}
@@ -178,10 +179,11 @@ export default function Home() {
               </div>
               <div className="order-1 lg:order-2 grid grid-cols-2 gap-8">
                 {[
-                  "https://i.postimg.cc/BnhCx0R9/Chat-GPT-Image-Jun-30-2025-11-14-07-PM.png",
-                  "https://i.postimg.cc/qRm0rg5D/Chat-GPT-Image-Jun-30-2025-11-19-00-PM.png",
-                  "https://i.postimg.cc/CxNw7v4V/Chat-GPT-Image-Jun-30-2025-11-22-16-PM.png",
-                  "https://i.postimg.cc/pdSbc3h3/Chat-GPT-Image-Jun-30-2025-11-23-06-PM.png",
+
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609704/Chat-GPT-Image-Jun-30-2025-11-14-07-PM_u1xfxt.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609767/Chat-GPT-Image-Jun-30-2025-11-19-00-PM_sopzx7.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609803/Chat-GPT-Image-Jun-30-2025-11-22-16-PM_uwvmz3.png",
+                  "https://res.cloudinary.com/dzufohihn/image/upload/v1767609860/Chat-GPT-Image-Jun-30-2025-11-23-06-PM_tj3ldj.png",
                 ].map((src, i) => (
                   <Link
                     key={i}
@@ -218,20 +220,20 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-screen-2xl mx-auto">
             {[
               {
-                main: "https://i.postimg.cc/J4c2yt8p/Chat-GPT-Image-Jun-30-2025-11-33-23-PM.png",
-                hover: "https://i.postimg.cc/d06B0hTG/image.png",
+                main: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610058/Chat-GPT-Image-Jun-30-2025-11-33-23-PM_oorotn.png",
+                hover: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610463/image_cylait.png",
               },
               {
-                main: "https://i.postimg.cc/VkNTt1Dn/Serene-Sketching-in-Soft-Light.png",
-                hover: "https://i.postimg.cc/d3Scg10R/image.png",
+                main: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610476/Serene-Sketching-in-Soft-Light_kcf9uj.png",
+                hover: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610570/image_pxxsnr.png",
               },
               {
-                main: "https://i.postimg.cc/xCbc47Yq/Chat-GPT-Image-Jun-30-2025-11-58-54-PM.png",
-                hover: "https://i.postimg.cc/jd6v13d8/image.png",
+                main: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610621/Chat-GPT-Image-Jun-30-2025-11-58-54-PM_gokvk1.png",
+                hover: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610633/image_k7m2fk.png",
               },
               {
-                main: "https://i.postimg.cc/cH56sd9h/Chat-GPT-Image-Jun-30-2025-11-49-43-PM.png",
-                hover: "https://i.postimg.cc/cHzPxzQw/image.png",
+                main: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610731/Chat-GPT-Image-Jun-30-2025-11-49-43-PM_i9dkto.png",
+                hover: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610719/image_eqwabo.png",
               },
             ].map((img, i) => (
               <Link
@@ -286,7 +288,6 @@ export default function Home() {
                   src="https://img.youtube.com/vi/lKfV5nuxSDY/maxresdefault.jpg"
                   alt="Carpet weaving process showing artisan craftsmanship"
                   className="w-full h-[32rem] md:h-[40rem] object-cover"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-center justify-center">
                   <Button
@@ -311,7 +312,9 @@ export default function Home() {
       </section>
 
       {/* ✅ Crafted Portraits Carousel Section */}
-      <Carousel3D />
+
+        <Carousel3D />
+
 
       <section className="py-32 bg-background">
         <div className="max-w-screen-2xl mx-auto px-6">
@@ -329,22 +332,22 @@ export default function Home() {
               {
                 title: "Conceptualization",
                 desc: "Our in-house studio helps shape original bespoke ideas.",
-                img: "https://i.postimg.cc/pX78qDK0/Chat-GPT-Image-Jul-1-2025-12-10-41-AM.png",
+                img: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610801/Chat-GPT-Image-Jul-1-2025-12-10-41-AM_mgftv7.png",
               },
               {
                 title: "Development",
                 desc: "Careful planning and selection of finest materials.",
-                img: "https://i.postimg.cc/cHtxXnZS/Chat-GPT-Image-Jul-1-2025-12-23-55-AM.png",
+                img: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610812/Chat-GPT-Image-Jul-1-2025-12-23-55-AM_tjztzv.png",
               },
               {
                 title: "Creation",
                 desc: "Craftsmanship in knotted, tufted, and woven forms.",
-                img: "https://i.postimg.cc/769VtfNK/Chat-GPT-Image-Jul-1-2025-12-28-28-AM.png",
+                img: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610863/Chat-GPT-Image-Jul-1-2025-12-28-28-AM_hfxq9r.png",
               },
               {
                 title: "Installation",
                 desc: "Professional fitting for the perfect finish.",
-                img: "https://i.postimg.cc/vTXNn0jH/Chat-GPT-Image-Jul-1-2025-12-27-01-AM.png",
+                img: "https://res.cloudinary.com/dzufohihn/image/upload/v1767610872/Chat-GPT-Image-Jul-1-2025-12-27-01-AM_pqszxu.png",
               },
             ].map((item) => (
               <div key={item.title} className="text-center group">
@@ -405,12 +408,12 @@ export default function Home() {
 
             <div className="relative group overflow-hidden w-full h-full">
               <img
-                src="https://i.postimg.cc/13hpgPM3/ChatGPT_Image_Jun_20,_2025,_11_23_59_PM.png"
+                src="https://res.cloudinary.com/dzufohihn/image/upload/v1767610935/ChatGPT_Image_Jun_20__2025__11_23_59_PM_hj4lnl.png"
                 alt="Heritage Default"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <img
-                src="https://i.postimg.cc/13hpgPM3/ChatGPT_Image_Jun_20,_2025,_11_23_59_PM.png"
+                src="https://res.cloudinary.com/dzufohihn/image/upload/v1767611004/ChatGPT_Image_Jun_20__2025__11_23_59_PM_fgi7nv.png"
                 alt="Heritage Hover"
                 className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
               />

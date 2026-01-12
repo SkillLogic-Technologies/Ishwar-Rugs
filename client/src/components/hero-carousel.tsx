@@ -18,7 +18,7 @@ const slides: CarouselSlide[] = [
     id: 1,
     title: "Velura",
     description: "Step into softness with our signature collection.",
-    image: "https://i.postimg.cc/1Xmm1g6H/Chat-GPT-Image-Jul-10-2025-02-58-06-PM.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608677/Chat-GPT-Image-Jul-10-2025-02-58-06-PM_dgzrup.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -26,7 +26,7 @@ const slides: CarouselSlide[] = [
     id: 2,
     title: "Jungle Weave",
     description: "Nature-inspired textures for modern living.",
-    image: "https://i.postimg.cc/W3Q9Y81k/Jungle-carpet.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608717/Jungle-carpet_zyaoul.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -34,7 +34,7 @@ const slides: CarouselSlide[] = [
     id: 3,
     title: "Medows",
     description: "Subtle elegance in every thread.",
-    image: "https://i.postimg.cc/vTf0Jn4S/Medows-carpet.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608732/Medows-carpet_zvnvdd.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -42,7 +42,7 @@ const slides: CarouselSlide[] = [
     id: 4,
     title: "Obscure",
     description: "A bold statement in color and form.",
-    image: "https://i.postimg.cc/y6ZpgMLX/Roxy-carpet.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608780/Roxy-carpet_m5aj4k.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -50,7 +50,7 @@ const slides: CarouselSlide[] = [
     id: 5,
     title: "EchoFade",
     description: "Raw beauty meets refined craftsmanship.",
-    image: "https://i.postimg.cc/MGnmkB4b/Rugged-carpet.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608793/Rugged-carpet_i37df4.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -58,7 +58,7 @@ const slides: CarouselSlide[] = [
     id: 6,
     title: "Spaceship",
     description: "Explore the cosmos of comfort with our Spaceeship collection.",
-    image: "https://i.postimg.cc/9Mjc7v64/Chat-GPT-Image-Jul-9-2025-06-29-21-PM.png",
+    image: "https://res.cloudinary.com/dzufohihn/image/upload/v1767608834/Chat-GPT-Image-Jul-9-2025-06-29-21-PM_wj2jv3.png",
     link: "/collections",
     buttonText: "EXPLORE COLLECTION",
   },
@@ -68,11 +68,12 @@ export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const timer = setInterval(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, 5000);
+  return () => clearInterval(timer);
+}, []);
+
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -97,12 +98,13 @@ export default function HeroCarousel() {
             }`}
             style={{ transform: `translateX(${(index - currentSlide) * 100}%)` }}
           >
-            <img
+           <img
               src={slide.image}
               alt={slide.title}
               className="w-full h-full object-cover"
               loading={index === 0 ? "eager" : "lazy"}
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
             {/* TEXT + CTA */}
