@@ -23,3 +23,7 @@ The same flow works for both **existing users and new users** — no separate si
 ### 1️⃣ Send OTP (Login Request)
 
 **Endpoint**
+
+## Admin 
+## Name: Adil Haya Fatima
+## Email: adilshah25012@gmail.com
