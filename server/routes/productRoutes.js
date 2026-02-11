@@ -4,6 +4,7 @@ import { upload } from "../middlewares/upload.js";
 import { isAuth } from "../middlewares/isAuth.middleware.js"
 import { isAdmin } from "../middlewares/isAdmin.middleware.js"
 import { optionalAuth } from "../middlewares/optionalAuth.middleware.js"
+import { attachIdentity } from "../middlewares/attachIdentity.middleware.js";
 
 const router = express.Router()
 
@@ -27,7 +28,7 @@ router.route("/:id")
 
 
 router.route("/:id/review")
-.post(optionalAuth, userReview)
+.post(optionalAuth, attachIdentity, userReview)
 
 export default router;
 
