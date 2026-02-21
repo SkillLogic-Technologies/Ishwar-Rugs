@@ -208,6 +208,24 @@ export const myProfile = async (req, res) => {
 };
 
 
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find(); // fetch all users from DB
+    res.json({ data: users }); // frontend format
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const logoutUser = (req, res) => {
   try {
     res.clearCookie("token", {

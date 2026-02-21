@@ -13,7 +13,7 @@ router.route("/")
 router.route("/:slug").get(getCollectionBySlug)
 
 router.route("/:id")
-.put(isAuth, isAdmin, upload.single("image"), updateCollection)
+.put( isAuth, isAdmin, upload.single("image"), updateCollection)
 .delete(isAuth, isAdmin, deleteCollection)
 
 

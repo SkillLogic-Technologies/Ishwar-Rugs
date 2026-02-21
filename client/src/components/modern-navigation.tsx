@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Sun, Moon, Search, ShoppingBag,User} from "lucide-react";
+import { Menu, X, Sun, Moon, Search, Heart, ShoppingBag ,User} from "lucide-react";
+import { useWishlist } from "@/context/WishlistContext";
+import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import Login from "@/pages/login";
@@ -16,11 +18,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function ModernNavigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [location] = useLocation();
-  const { theme, setTheme } = useTheme();
   const [showLogin, setShowLogin] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const { wishlistCount } = useWishlist();
+  const { cartCount } = useCart();
 
-  const [, navigate] = useLocation();
+
+  const [location, navigate] = useLocation();
   const token = localStorage.getItem("token");
   const isVerifyPage = location === "/verify";
 
@@ -213,17 +217,33 @@ const handleLogout = async () => {
               <Search className="h-5 w-5" />
             </Button>
 
+              {/* WISHLIST */}
+              <Link href="/wishlist">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300 relative"
+                >
+                  <Heart className="h-5 w-5" />
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {wishlistCount}
+                  </span>
+                </Button>
+              </Link>
+
             {/* Shopping Bag */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300 relative"
-            >
-              <ShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-premium-gold text-primary-brown text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                0
-              </span>
-            </Button>
+            <Link href="/cart">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300 relative"
+              >
+                <ShoppingBag className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 bg-premium-gold text-primary-brown text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {cartCount}
+                </span>
+              </Button>
+            </Link>
 
 
 
@@ -241,7 +261,7 @@ const handleLogout = async () => {
                   {verifiedUser.username.charAt(0).toUpperCase()}
                 </div>
               ) : (
-                <User className="h-5 w-5" /> 
+                 <User className="h-5 w-5" /> 
               )}
 
 
