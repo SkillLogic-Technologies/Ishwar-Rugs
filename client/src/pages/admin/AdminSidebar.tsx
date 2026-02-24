@@ -24,12 +24,12 @@ export default function AdminSidebar({ isOpen, setIsOpen }) {
       path: "/admin/categories",
       icon: Grid2X2,
       match: ["/admin/categories", "/admin/add-categories", "/admin/edit-category"]
-
     },
     {
       name: "Collections",
       path: "/admin/collections",
       icon: Layers,
+
     },
     {
       name: "Orders",
@@ -46,7 +46,6 @@ export default function AdminSidebar({ isOpen, setIsOpen }) {
       path: "/admin/inquiries",
       icon: MessageSquare,
       match: ["/admin/inquiries"]
-
     },
   ];
 
@@ -55,16 +54,16 @@ export default function AdminSidebar({ isOpen, setIsOpen }) {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          className="fixed inset-0 bg-black/40 md:hidden" 
         />
       )}
 
       <div className={` fixed top-0 left-0 h-screen w-64 z-50 transform transition-transform duration-300
         bg-white dark:bg-neutral-900 border-r border-gray-200 dark:border-neutral-800
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}  lg:translate-x-0`}>
 
         <div
-          className=" flex md:justify-center justify-between items-center p-6 h-20 shadow-md bg-white dark:bg-neutral-900
+          className=" flex  justify-between lg:justify-center items-center p-6 h-20 shadow-md bg-white dark:bg-neutral-900
           border-b border-gray-200 dark:border-neutral-800">
           <h1 className="text-xl font-bold text-premium-gold">
             Admin Panel
@@ -72,7 +71,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }) {
 
           <button
             onClick={() => setIsOpen(false)}
-            className="md:hidden text-gray-700 dark:text-gray-300"
+            className=" text-gray-700  lg:hidden dark:text-gray-300"
           >
             <X size={20} />
           </button>
@@ -103,5 +102,3 @@ export default function AdminSidebar({ isOpen, setIsOpen }) {
     </div>
   );
 }
-
-

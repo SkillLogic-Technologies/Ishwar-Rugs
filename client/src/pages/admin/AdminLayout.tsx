@@ -4,22 +4,46 @@ import AdminNavbar from "./AdminNavbar";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="flex bg-gray-50 dark:bg-neutral-950 w-full text-primary-brown dark:text-white">
+    <div className="flex h-screen bg-gray-50 dark:bg-neutral-950 text-primary-brown dark:text-white overflow-hidden">
       
-      <aside>
-        <AdminSidebar setIsOpen={setIsOpen} isOpen={isOpen} />
+     
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      
+      <aside
+          className={`
+            fixed top-0 left-0
+            h-screen w-64
+            z-50
+            bg-white dark:bg-neutral-900
+            shadow-lg lg:shadow-none
+            transform transition-transform duration-300
+            ${isOpen ? "translate-x-0" : "-translate-x-full"}
+            lg:translate-x-0
+          `}
+        >
+          <AdminSidebar setIsOpen={setIsOpen} isOpen={isOpen} />
       </aside>
 
       
-      <main
-        className="lg:ml-64 flex-1 pt-[0px] overflow-auto"
-      >
+      <div className="flex flex-col flex-1 lg:ml-64 w-full">
+        
+       
         <AdminNavbar setIsOpen={setIsOpen} isOpen={isOpen} />
-        <div className="p-6">
-        {children}
+
+        
+        <main className="flex-1 overflow-y-auto sm:p-6">
+          {children}
+        </main>
+
       </div>
-      </main>
     </div>
   );
 }
