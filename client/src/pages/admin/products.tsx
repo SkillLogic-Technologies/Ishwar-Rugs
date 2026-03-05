@@ -76,9 +76,9 @@ export default function ProductsPage() {
 
 
   return (
-    <div className="bg-white text-black dark:bg-black/40 p-2 dark:text-white min-h-screen">
+    <div className=" mt-20 text-black dark:bg-black/40 md:p-2 dark:text-white min-h-screen">
 
-      <div className="flex justify-between items-center mb-6 mt-20">
+      <div className="flex justify-between items-center mb-6 p-4">
 
         <h1 className="text-2xl font-semibold text-warm-gold dark:text-premium-gold">
           All Products
@@ -96,7 +96,7 @@ export default function ProductsPage() {
 
         <table className="w-full text-sm">
 
-          <thead className="bg-gray-50 text-gray-600 dark:bg-black/10 dark:text-gray-200">
+          <thead className="hidden sm:table-header-group text-gray-600 dark:bg-black/10 dark:text-gray-200">
             <tr>
               <th className="p-4 text-left">Image</th>
               <th className="p-4 text-left">Name</th>
@@ -110,59 +110,134 @@ export default function ProductsPage() {
 
 
           <tbody>
-
             {products.map((product: any) => (
-              <tr
-                key={product._id}
-                className="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black"
-              >
+              <>
+               
+                <tr
+                  key={product._id}
+                  className="hidden md:table-row border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black"
+                >
+                  <td className="p-4">
+                    <img
+                      src={`http://localhost:5000/${product.thumbnail}`}
+                      className="w-14 h-14 object-cover rounded-lg"
+                    />
+                  </td>
 
-                <td className="p-4">
-                  <img
-                    src={`http://localhost:5000/${product.thumbnail}`}
-                    className="w-14 h-14 object-cover rounded"
-                  />
-                </td>
+                  <td className="p-4 font-medium">
+                    {product.title}
+                  </td>
 
-                <td className="p-4 font-medium">
-                  {product.title}
-                </td>
+                  <td className="p-4">
+                    {product.category?.name}
+                  </td>
 
+                  <td className="p-4 font-semibold">
+                    ₹{product.price}
+                  </td>
 
-                <td className="p-4">
-                  {product.category.name}
-                </td>
+                  <td className="p-4">
+                    {product.stock}
+                  </td>
 
-                <td className="p-4">
-                  {product.price}
-                </td>
+                  <td className="p-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium 
+                      ${product.isFeatured 
+                        ? "bg-green-100 text-green-600" 
+                        : "bg-gray-200 text-gray-600"}`}>
+                      {product.isFeatured ? "Featured" : "Not Featured"}
+                    </span>
+                  </td>
 
-                <td className="p-4">
-                  {product.stock}
-                </td>
+                  <td className="p-4">
+                    <div className="flex justify-center items-center gap-3">
+                      <Link href={`/admin/edit-products/${product.slug}`}>
+                        <button className="text-green-600 hover:text-green-800">
+                          <Pencil size={18} />
+                        </button>
+                      </Link>
 
-                <td className="p-4">
-                  <span className="bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300 px-3 py-1 rounded-full text-xs">
-                    {product.isFeatured ? "✅" : "❌"}
-                  </span>
-                </td>
+                      <button
+                        className="text-red-600 hover:text-red-800"
+                        onClick={() => handleDelete(product._id)}
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
 
-                <td className="p-4 flex gap-3">
+               
+                <tr
+                  key={product._id + "-mobile"}
+                  className="md:hidden "
+                >
+                  <td colSpan={7} className="p-4">
+                    <div className=" dark:bg-neutral-900 rounded-2xl shadow-md  p-4 flex flex-col gap-4">
 
-                  <Link href={`/admin/edit-products/${product.slug}`}>
-                    <button className="text-green-600 hover:text-green-800">
-                      <Pencil size={18} />
-                    </button>
-                  </Link>
+                     
+                      <div className="flex gap-4">
+                        <img
+                          src={`http://localhost:5000/${product.thumbnail}`}
+                          className="w-24 h-24 object-cover rounded-xl shadow-sm"
+                        />
 
-                  <button className="text-red-600 hover:text-red-800" onClick={() => handleDelete(product._id)}>
-                    <Trash2 size={18} />
-                  </button>
+                        <div className="flex-1">
+                          <h2 className="text-base font-semibold dark:text-white text-gray-800 leading-snug">
+                            {product.title}
+                          </h2>
 
-                </td>
-              </tr>
+                          <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-amber-100 text-amber-700 rounded-full">
+                            {product.category?.name}
+                          </span>
+
+                          <p className="mt-2 text-lg dark:text-white font-bold text-gray-900">
+                            ₹{product.price}
+                          </p>
+                        </div>
+                      </div>
+
+                      
+                      <div className="flex items-center justify-between">
+
+                        <div>
+                          <span className="text-xs text-gray-500">Stock</span>
+                          <div className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium w-fit">
+                            {product.stock}
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium 
+                            ${product.isFeatured
+                              ? "bg-green-500 text-white"
+                              : "bg-gray-300 text-gray-700"
+                            }`}>
+                            {product.isFeatured ? "Featured" : "Not Featured"}
+                          </span>
+                        </div>
+
+                        <div className="flex gap-3">
+                          <Link href={`/admin/edit-products/${product.slug}`}>
+                            <button className="p-2 rounded-lg bg-green-100 text-green-600">
+                              <Pencil size={16} />
+                            </button>
+                          </Link>
+
+                          <button
+                            className="p-2 rounded-lg bg-red-100 text-red-600"
+                            onClick={() => handleDelete(product._id)}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </>
             ))}
-
           </tbody>
         </table>
 
