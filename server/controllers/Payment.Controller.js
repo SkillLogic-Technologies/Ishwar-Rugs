@@ -1,8 +1,10 @@
+import { sendEmail, orderConfirmationTemplate } from "../utils/emailService.js";
 import crypto from "crypto";
 import Payment from "../models/Payment.model.js";
 import Order from "../models/Order.model.js";
 import Product from "../models/Product.js";
 import Cart from "../models/Cart.js";
+
 
 export const verifyRazorpayPayment = async (req, res) => {
   try {
@@ -13,7 +15,7 @@ export const verifyRazorpayPayment = async (req, res) => {
       orderId,
     } = req.body;
 
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId).populate("user", "email name");
 
     if (!order) {
       return res.status(404).json({ success: false, message: "Order not found" });
@@ -52,6 +54,16 @@ export const verifyRazorpayPayment = async (req, res) => {
     order.payment = payment._id;
     order.orderStatus = "Processing";
     await order.save();
+
+  try {
+  await sendEmail({
+    to: order.user.email,
+    subject: `Order Confirmation #${order._id}`,
+    html: orderConfirmationTemplate(order),
+  });
+} catch (emailError) {
+  console.log("Email failed:", emailError.message);
+}
 
     // 🔥 DELETE BOTH POSSIBILITIES
     await Cart.deleteMany({

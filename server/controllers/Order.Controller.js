@@ -1,7 +1,7 @@
 import Order from "../models/Order.model.js";
 import Product from "../models/Product.js";
 import {getRazorpayInstance} from "../config/razorpay.js";
-
+import { sendEmail, orderStatusTemplate } from "../utils/emailService.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -116,7 +116,7 @@ export const updateOrderStatus = async (req, res) => {
       });
     }
 
-    const order = await Order.findById(id);
+    const order = await Order.findById(id).populate("user", "email name");
 
     if (!order) {
       return res.status(404).json({
@@ -125,14 +125,26 @@ export const updateOrderStatus = async (req, res) => {
       });
     }
 
-    order.orderStatus = status;
-    await order.save();
+  order.orderStatus = status;
+  await order.save();
 
-    res.json({
-      success: true,
-      message: "Order status updated successfully",
-      order
+  // 📧 Send Email to User
+  try {
+    await sendEmail({
+      to: order.user.email,
+      subject: `Your Order ${order._id} Status Updated`,
+      html: orderStatusTemplate(order),
     });
+  } catch (emailError) {
+    console.error("Failed to send order status email:", emailError.message);
+    // Email sending failed but order status was updated, so we log it but don't fail the API
+  }
+
+  res.json({
+    success: true,
+    message: "Order status updated successfully",
+    order
+  });
 
   } catch (error) {
     res.status(500).json({

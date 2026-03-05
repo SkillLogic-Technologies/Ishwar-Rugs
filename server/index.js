@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
+
+// 🔴 IMPORTANT: Load env vars FIRST before importing anything that needs them
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
