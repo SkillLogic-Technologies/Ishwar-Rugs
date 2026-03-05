@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, Sun, Moon, Search, Heart, ShoppingBag, User } from "lucide-react";
+=======
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import {
+  Menu,
+  Sun,
+  Moon,
+  Search,
+  Heart,
+  ShoppingBag,
+  User,
+} from "lucide-react";
+>>>>>>> origin/adil-dev
 import { useWishlist } from "@/context/WishlistContext";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
@@ -19,15 +34,24 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 export default function ModernNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+<<<<<<< HEAD
   const [collections, setCollections] = useState<any[]>([]);
   const { theme, setTheme } = useTheme();
   const { wishlistCount } = useWishlist();
   const { cartCount } = useCart();
+=======
+
+  const { theme, setTheme } = useTheme();
+  const { wishlistCount } = useWishlist();
+  const { cartCount, setCartCount } = useCart(); // ✅ FIXED
+  const [token, setToken] = useState(localStorage.getItem("token"));
+>>>>>>> origin/adil-dev
 
   const [location, navigate] = useLocation();
-  const token = localStorage.getItem("token");
+  
   const isVerifyPage = location === "/verify";
 
+<<<<<<< HEAD
   type VerifiedUser = { username: string; email?: string };
   const [verifiedUser, setVerifiedUser] = useState<VerifiedUser | null>(null);
 
@@ -74,10 +98,86 @@ export default function ModernNavigation() {
     navigate("/");
   };
 
+=======
+  type VerifiedUser = {
+    username: string;
+    email?: string;
+  };
+
+  const [verifiedUser, setVerifiedUser] =
+    useState<VerifiedUser | null>(null);
+
+  // ✅ Load verified user
+  useEffect(() => {
+  const loadUser = () => {
+    const user = localStorage.getItem("verifiedUser");
+    setVerifiedUser(user ? JSON.parse(user) : null);
+  };
+
+  loadUser();
+
+  window.addEventListener("userVerified", loadUser);
+
+  return () => {
+    window.removeEventListener("userVerified", loadUser);
+  };
+}, []);
+  // ✅ CART AUTO SYNC (page change + payment success)
+  useEffect(() => {
+    const refreshCart = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/user/cart",
+          { withCredentials: true }
+        );
+
+        const items = res.data.items || [];
+
+        const count = items.reduce(
+          (acc: number, item: any) => acc + item.quantity,
+          0
+        );
+
+        setCartCount(count);
+      } catch {
+        setCartCount(0);
+      }
+    };
+
+    refreshCart(); // page load or route change
+
+    window.addEventListener("cartUpdated", refreshCart);
+
+    return () => {
+      window.removeEventListener("cartUpdated", refreshCart);
+    };
+  }, [location]);
+
+ const handleLogout = async () => {
+  try {
+    await fetch("http://127.0.0.1:5000/api/users/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+  } catch (err) {
+    console.error("Logout error", err);
+  }
+
+ localStorage.removeItem("token");
+localStorage.removeItem("verifiedUser");
+
+setVerifiedUser(null);
+setToken(null);
+
+navigate("/");
+};
+
+>>>>>>> origin/adil-dev
   return (
     <nav className="fixed w-full top-0 z-50 glass-effect border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
+<<<<<<< HEAD
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/">
@@ -86,16 +186,28 @@ export default function ModernNavigation() {
               </div>
             </Link>
           </div>
+=======
+>>>>>>> origin/adil-dev
 
-          {/* Desktop Navigation */}
+          {/* Logo */}
+          <Link href="/">
+            <img
+              src="/logo/Logo.png"
+              alt="Ishwar Rugs Logo"
+              className="h-20 w-auto cursor-pointer"
+            />
+          </Link>
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
+
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-foreground hover:text-premium-gold bg-transparent text-sm font-semibold tracking-wide">
+                  <NavigationMenuTrigger className="text-sm font-semibold">
                     COLLECTIONS
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
+<<<<<<< HEAD
                     <div className="w-96 p-8 glass-effect">
                       <div className="space-y-4">
                         <h4 className="font-serif text-xl font-bold text-premium-gold mb-6">
@@ -129,20 +241,35 @@ export default function ModernNavigation() {
                           </div>
                         </div>
                       </div>
+=======
+                    <div className="w-96 p-6">
+                      <NavigationMenuLink asChild>
+                        <Link href="/collections">
+                          View All Collections →
+                        </Link>
+                      </NavigationMenuLink>
+>>>>>>> origin/adil-dev
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
 
+<<<<<<< HEAD
             {/* Other links */}
             <Link href="/about" className={`text-sm font-semibold tracking-wide transition-all duration-300 ${location === "/about" ? "text-premium-gold" : "text-foreground hover:text-premium-gold"}`}>HERITAGE</Link>
             <Link href="/stories" className={`text-sm font-semibold tracking-wide transition-all duration-300 ${location === "/stories" ? "text-premium-gold" : "text-foreground hover:text-premium-gold"}`}>STORIES</Link>
             <Link href="/contact" className={`text-sm font-semibold tracking-wide transition-all duration-300 ${location === "/contact" ? "text-premium-gold" : "text-foreground hover:text-premium-gold"}`}>CONTACT</Link>
+=======
+            <Link href="/about">HERITAGE</Link>
+            <Link href="/stories">STORIES</Link>
+            <Link href="/contact">CONTACT</Link>
+>>>>>>> origin/adil-dev
           </div>
 
-          {/* Action Buttons */}
+          {/* Right Side Icons */}
           <div className="flex items-center space-x-4">
+<<<<<<< HEAD
             {/* Theme Toggle */}
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300">
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -156,22 +283,61 @@ export default function ModernNavigation() {
               <Button variant="ghost" size="icon" className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300 relative">
                 <Heart className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">{wishlistCount}</span>
+=======
+
+            {/* Theme */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() =>
+                setTheme(theme === "dark" ? "light" : "dark")
+              }
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </Button>
+
+            {/* Wishlist */}
+            <Link href="/wishlist">
+              <Button variant="ghost" size="icon" className="relative">
+                <Heart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+>>>>>>> origin/adil-dev
               </Button>
             </Link>
 
             {/* Cart */}
             <Link href="/cart">
+<<<<<<< HEAD
               <Button variant="ghost" size="icon" className="text-foreground hover:text-premium-gold hover:bg-white/10 transition-all duration-300 relative">
                 <ShoppingBag className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 bg-premium-gold text-primary-brown text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">{cartCount}</span>
+=======
+              <Button variant="ghost" size="icon" className="relative">
+                <ShoppingBag className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+>>>>>>> origin/adil-dev
               </Button>
             </Link>
 
             {/* User */}
             <div className="relative group">
+<<<<<<< HEAD
               <Button variant="ghost" size="icon" className="text-gray-800 dark:text-white hover:text-yellow-600 dark:hover:text-premium-gold hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 relative">
                 {verifiedUser?.username ? (
                   <div className="h-8 w-8 rounded-full bg-yellow-500 text-black flex items-center justify-center text-sm font-bold">
+=======
+              <Button variant="ghost" size="icon">
+                {verifiedUser?.username ? (
+                  <div className="h-8 w-8 rounded-full bg-yellow-500 text-black flex items-center justify-center font-bold">
+>>>>>>> origin/adil-dev
                     {verifiedUser.username.charAt(0).toUpperCase()}
                   </div>
                 ) : (
@@ -179,6 +345,7 @@ export default function ModernNavigation() {
                 )}
               </Button>
 
+<<<<<<< HEAD
               {/* Dropdown */}
               <div className="absolute right-0 mt-3 w-44 rounded-xl bg-white dark:bg-[#1c1917] border border-gray-200 dark:border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 {isVerifyPage && (
@@ -221,18 +388,84 @@ export default function ModernNavigation() {
                   <Link href="/about" className="text-foreground hover:text-premium-gold transition-colors text-lg font-semibold tracking-wide" onClick={() => setIsOpen(false)}>HERITAGE</Link>
                   <Link href="/stories" className="text-foreground hover:text-premium-gold transition-colors text-lg font-semibold tracking-wide" onClick={() => setIsOpen(false)}>STORIES</Link>
                   <Link href="/contact" className="text-foreground hover:text-premium-gold transition-colors text-lg font-semibold tracking-wide" onClick={() => setIsOpen(false)}>CONTACT</Link>
+=======
+              <div className="absolute right-0 top-full  w-44 bg-white dark:bg-black border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
+
+                {!isVerifyPage && token && (
+                  <>
+                    <button
+                      onClick={() => navigate("/orders")}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      My Orders
+                    </button>
+
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      Logout
+                    </button>
+                  </>
+                )}
+
+                {!token && (
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <div className="flex flex-col space-y-6 mt-8">
+                  <Link href="/">HOME</Link>
+                  <Link href="/collections">COLLECTIONS</Link>
+                  <Link href="/about">HERITAGE</Link>
+                  <Link href="/stories">STORIES</Link>
+                  <Link href="/contact">CONTACT</Link>
+>>>>>>> origin/adil-dev
                 </div>
               </SheetContent>
             </Sheet>
+
           </div>
         </div>
       </div>
 
       {/* Login Modal */}
       {showLogin && (
+<<<<<<< HEAD
         <div className="my-24 flex items-center justify-center z-50" onClick={() => setShowLogin(false)}>
           <div className="relative w-[90%] max-w-md p-8 rounded-2xl bg-[#020617] border border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <button onClick={() => setShowLogin(false)} className="absolute top-3 right-3 text-white text-lg">✖</button>
+=======
+        <div
+          className="my-24 flex items-center justify-center"
+          onClick={() => setShowLogin(false)}
+        >
+          <div
+            className="w-[90%] max-w-md p-8 rounded-2xl bg-[#020617] border shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowLogin(false)}
+              className="absolute top-3 right-3 text-white"
+            >
+              ✖
+            </button>
+
+>>>>>>> origin/adil-dev
             <Login />
           </div>
         </div>
