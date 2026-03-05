@@ -54,19 +54,19 @@ export default function Verify() {
         setSuccess(true);
         setMessage("Logged in Successfully ");
 
-        //  Save token
+        // Save token
         localStorage.setItem("token", data.token);
 
-        // USER SAVE (VERY IMPORTANT)
+        // USER SAVE (localStorage for consistency with navbar)
         localStorage.setItem("verifiedUser", JSON.stringify(data.user));
 
-        //  NAVBAR KO SIGNAL
+        // NAVBAR SIGNAL
         window.dispatchEvent(new Event("userVerified"));
 
-        //  Clear temp data
+        // Clear temp data
         sessionStorage.removeItem("otpUser");
 
-        //  Redirect to home (HeroCarousel)
+        // Redirect to home
         setTimeout(() => {
           navigate("/");
         }, 1200);
@@ -84,16 +84,24 @@ export default function Verify() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-      <div className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl w-[420px] p-10 text-white">
+      <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl w-[420px] p-10 text-white">
+
+        {/* Cross Button */}
+        <button
+          onClick={() => navigate("/")}
+          className="absolute top-4 right-4 text-gray-300 hover:text-white text-xl"
+        >
+          ✕
+        </button>
+
         <h2 className="text-3xl font-semibold text-center mb-8">Verify OTP</h2>
 
         {message && (
           <div
-            className={`mb-6 text-center py-2 rounded-lg text-sm ${
-              success
+            className={`mb-6 text-center py-2 rounded-lg text-sm ${success
                 ? "bg-green-500/20 text-green-400"
                 : "bg-red-500/20 text-red-400"
-            }`}
+              }`}
           >
             {message}
           </div>
