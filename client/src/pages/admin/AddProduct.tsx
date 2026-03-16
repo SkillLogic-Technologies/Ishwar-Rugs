@@ -173,7 +173,7 @@ export default function AddProductPage() {
   }, [match, params?.slug]);
 
   return (
-    <div className="max-w-6xl mx-auto mt-20 text-black dark:text-white">
+    <div className="max-w-6xl py-10 mx-auto mt-20 text-black dark:text-white">
       <h1 className="text-2xl text-center font-semibold mb-6 text-warm-gold dark:text-premium-gold">
         {match ? "Edit Product" : "Add Product"}
       </h1>

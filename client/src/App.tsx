@@ -207,7 +207,7 @@ function Router() {
         </Switch>
       </main>
 
-      {!isAdminRoute && <ModernFooter />}
+      <ModernFooter />
     </div>
   );
 }

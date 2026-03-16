@@ -12,20 +12,6 @@ export default function DashboardPage() {
     icon: React.ElementType;
   }
 
-  const data = [
-    { name: "Jan", users: 25 },
-    { name: "Feb", users: 18 },
-    { name: "Mar", users: 22 },
-    { name: "Apr", users: 15 },
-    { name: "May", users: 20 },
-    { name: "Jun", users: 12 },
-    { name: "Jul", users: 18 },
-    { name: "Aug", users: 14 },
-    { name: "Sep", users: 21 },
-    { name: "Oct", users: 19 },
-    { name: "Nov", users: 28 },
-    { name: "Dec", users: 25 },
-  ];
 
   const [stats, setStats] = useState<Stat[]>([]);
   const [graphData, setGraphData] = useState([]);
@@ -36,14 +22,10 @@ export default function DashboardPage() {
     );
     setGraphData(res.data.graph);
   };
-useEffect(() => {
-  const fetchStats = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:5000/api/admin/dashboard-stats",
-        { withCredentials: true }
-      );
 
+  useEffect(() => {
+    const fetchStats = async () => {
+      const res = await axios.get("http://localhost:5000/api/admin/dashboard-stats");
       const data = res.data;
 
       setStats([
@@ -72,19 +54,14 @@ useEffect(() => {
           color: "border-red-500",
         },
       ]);
+    };
+    fetchStats();
+    fetchGraph();
+  }, []);
 
-    } catch (error: any) {
-      // ❌ DO NOTHING
-      // This prevents red overlay
-      console.log("Unauthorized access");
-    }
-  };
-
-  fetchStats();
-}, []);
   return (
-    <div className="mt-20"> 
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className=" py-24 px-4"> 
+      <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
         {stats.map((item, i) => {
           const Icon = item.icon;
 
@@ -92,8 +69,8 @@ useEffect(() => {
       <div
         key={i}
         className={` p-4 sm:p-5 rounded-xl  shadow-sm bg-white dark:bg-neutral-900 dark:${item.color} border-b-4 ${item.color} transition-all duration-300
-    hover:shadow-md
-    hover:-translate-y-1`}
+          hover:shadow-md
+          hover:-translate-y-1`}
 
       >
         <div className="flex justify-between items-center">

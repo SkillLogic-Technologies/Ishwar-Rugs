@@ -66,87 +66,134 @@ export default function CategoriesPage() {
 
 
   return (
-    <div className="bg-white text-black dark:bg-black/40 p-2 dark:text-white min-h-screen">
+    <div className="bg-white text-black dark:bg-black/40 dark:text-white p-4 sm:p-6">
 
-      <div className="flex justify-between items-center mb-6 mt-20">
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 mt-20">
+    <h1 className="text-xl sm:text-2xl font-semibold text-warm-gold dark:text-premium-gold">
+      All Categories
+    </h1>
 
-        <h1 className="text-2xl font-semibold text-warm-gold dark:text-premium-gold">
-          All Categories
-        </h1>
+    <Link href="/admin/add-categories">
+      <button className="w-full sm:w-auto bg-warm-gold text-white px-5 py-2 rounded-lg shadow hover:bg-premium-gold transition">
+        + Add Category
+      </button>
+    </Link>
+  </div>
 
-        <Link href="/admin/add-categories">
-          <button className="bg-warm-gold text-white px-5 py-2 rounded-lg shadow hover:bg-premium-gold">
-            + Add Category
-          </button>
-        </Link>
+  
+  <div className="space-y-4 sm:hidden">
+    {categories.map((category: any) => (
+      <div
+        key={category._id}
+        className="bg-white dark:bg-neutral-900 rounded-xl shadow p-4 flex gap-4"
+      >
+     
+        <img
+          src={`http://localhost:5000/${category.image}`}
+          className="w-20 h-20 rounded-lg object-cover"
+        />
 
-      </div>
+   
+        <div className="flex-1">
+          <h2 className="font-semibold text-base">
+            {category.name}
+          </h2>
 
-      <div className="bg-white dark:bg-black/10 rounded-xl shadow-sm overflow-hidden">
+          <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+            {category.description}
+          </p>
 
-        <table className="w-full text-sm">
+          <div className="flex items-center justify-between mt-3">
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium
+              ${category.isActive
+                  ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300"
+                  : "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300"
+                }`}
+            >
+              {category.isActive ? "Active" : "Inactive"}
+            </span>
 
-          <thead className="bg-gray-50 text-gray-600 dark:bg-black/10 dark:text-gray-200">
-            <tr>
-              <th className="p-4 text-left">Image</th>
-              <th className="p-4 text-left">Name</th>
-              <th className="p-4 text-left">Description</th>
-              <th className="p-4 text-left">Is Active</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
+            <div className="flex gap-3">
+              <Link href={`/admin/edit-category/${category.slug}`}>
+                <button className="text-green-600">
+                  <Pencil size={18} />
+                </button>
+              </Link>
 
-
-          <tbody>
-
-            {categories.map((category: any) => (
-              <tr
-                key={category._id}
-                className="border-t dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black"
+              <button
+                className="text-red-600"
+                onClick={() => handleDelete(category._id)}
               >
-
-                <td className="p-4">
-                  <img
-                    src={`http://localhost:5000/${category.image}`}
-                    className="w-14 h-14 object-cover rounded"
-                  />
-                </td>
-
-                <td className="p-4 font-medium">
-                  {category.name}
-                </td>
-
-                <td className="p-4">
-                  {category.description}
-                </td>
-
-                <td className="p-4">
-                  <span className="bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300 px-3 py-1 rounded-full text-xs">
-                    {category.isActive ? "✅" : "❌"}
-                  </span>
-                </td>
-
-                <td className="p-4 flex gap-3">
-
-                  <Link href={`/admin/edit-category/${category.slug}`}>
-                    <button className="text-green-600 hover:text-green-800">
-                      <Pencil size={18} />
-                    </button>
-                  </Link>
-
-                  <button className="text-red-600 hover:text-red-800" onClick={() => handleDelete(category._id)} >
-                    <Trash2 size={18} />
-                  </button>
-
-                </td>
-              </tr>
-            ))}
-
-          </tbody>
-        </table>
-
+                <Trash2 size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+    ))}
+  </div>
 
-    </div>
+ 
+  <div className="hidden sm:block bg-white dark:bg-black/10 rounded-xl shadow-sm overflow-hidden">
+
+    <table className="w-full text-sm">
+      <thead className="bg-gray-50 text-gray-600 dark:bg-black/10 dark:text-gray-200">
+        <tr>
+          <th className="p-4 text-left">Image</th>
+          <th className="p-4 text-left">Name</th>
+          <th className="p-4 text-left">Description</th>
+          <th className="p-4 text-left">Status</th>
+          <th className="p-4 text-left">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {categories.map((category: any) => (
+          <tr
+            key={category._id}
+            className="border-t dark:border-gray-700 hover:bg-ray-50 dark:hover:bg-black transition"
+          >
+            <td className="p-4">
+              <img
+                src={`http://localhost:5000/${category.image}`}
+                className="w-14 h-14 object-cover rounded"
+              />
+            </td>
+
+            <td className="p-4 font-medium">
+              {category.name}
+            </td>
+
+            <td className="p-4 max-w-[250px] truncate">
+              {category.description}
+            </td>
+
+            <td className="p-4">
+              {category.isActive ? "Active" : "Inactive"}
+            </td>
+
+            <td className="p-4 flex gap-3">
+              <Link href={`/admin/edit-category/${category.slug}`}>
+                <button className="text-green-600">
+                  <Pencil size={18} />
+                </button>
+              </Link>
+
+              <button
+                className="text-red-600"
+                onClick={() => handleDelete(category._id)}
+              >
+                <Trash2 size={18} />
+              </button>
+            </td>
+
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+  </div>
+</div>
   );
 }
