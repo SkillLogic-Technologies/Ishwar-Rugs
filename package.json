@@ -78,7 +78,7 @@
     "react-spring": "^10.0.3",
     "react-spring-3d-carousel": "^1.3.4",
     "recharts": "^2.15.4",
-    "swiper": "^11.2.10",
+    "swiper": "^12.1.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.2.5",
