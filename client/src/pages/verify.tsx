@@ -57,10 +57,10 @@ export default function Verify() {
         // Save token
         localStorage.setItem("token", data.token);
 
-        // USER SAVE (localStorage for consistency with navbar)
+        // USER SAVE (VERY IMPORTANT)
         localStorage.setItem("verifiedUser", JSON.stringify(data.user));
 
-        // NAVBAR SIGNAL
+        // NAVBAR KO SIGNAL
         window.dispatchEvent(new Event("userVerified"));
 
         // Clear temp data
@@ -84,6 +84,7 @@ export default function Verify() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
+
       <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl w-[420px] p-10 text-white">
 
         {/* Cross Button */}
@@ -94,14 +95,17 @@ export default function Verify() {
           ✕
         </button>
 
-        <h2 className="text-3xl font-semibold text-center mb-8">Verify OTP</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8">
+          Verify OTP
+        </h2>
 
         {message && (
           <div
-            className={`mb-6 text-center py-2 rounded-lg text-sm ${success
+            className={`mb-6 text-center py-2 rounded-lg text-sm ${
+              success
                 ? "bg-green-500/20 text-green-400"
                 : "bg-red-500/20 text-red-400"
-              }`}
+            }`}
           >
             {message}
           </div>
