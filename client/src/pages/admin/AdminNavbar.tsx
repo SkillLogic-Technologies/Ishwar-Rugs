@@ -4,8 +4,6 @@ import { Search, Sun, Moon, Menu } from "lucide-react";
 import logo from "../../../public/logo/Logo.png";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 interface NavbarProps {
 setIsOpen: (value: boolean) => void;

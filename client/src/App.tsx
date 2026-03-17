@@ -16,7 +16,7 @@ import axios from "axios";
 
 import TrackVisit from "@/components/TrackVisit";
 
-// Public pages
+/* Public pages */
 import Home from "@/pages/home";
 import Collections from "@/pages/collections";
 import CollectionDetail from "@/pages/collection-detail";
@@ -28,19 +28,16 @@ import Stories from "@/pages/stories";
 import NotFound from "@/pages/not-found";
 import WishlistPage from "./pages/WishlistPage";
 import CartPage from "./pages/CartPage";
-import OrdersPage from "./pages/OrdersPage";
 import Verify from "@/pages/verify";
 
-// Admin pages
+/* Admin pages */
 import AdminLogin from "@/pages/admin/login";
 import AdminDashboard from "@/pages/admin/dashboard";
 import AdminCollections from "@/pages/admin/collections";
 import AdminCategories from "@/pages/admin/categories";
-import AdminAddCategory from "@/pages/admin/AddCategory";
 import AdminProducts from "@/pages/admin/products";
 import AdminAddProducts from "@/pages/admin/AddProduct";
 import InquiriesPage from "@/pages/admin/inquiries";
-import InquiryDetailPage from "@/pages/admin/InquiryDetailPage";
 import AdminCustomers from "@/pages/admin/customers";
 import AdminOrders from "@/pages/admin/orders";
 import AdminLayout from "@/pages/admin/AdminLayout";
@@ -49,35 +46,49 @@ import AddCollection from "@/pages/admin/AddCollection";
 import "@/components/styles/carousel.css";
 
 function Router() {
+
   const { setWishlistCount } = useWishlist();
   const { setCartCount } = useCart();
+
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
 
   const fetchCartCount = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/user/cart", {
-        withCredentials: true,
-      });
+
+      const res = await axios.get(
+        "http://localhost:5000/api/user/cart",
+        { withCredentials: true }
+      );
+
       const items = res.data.items || [];
+
       const count = items.reduce(
         (acc: number, item: any) => acc + item.quantity,
-        0,
+        0
       );
+
       setCartCount(count);
-    } catch {
+
+    } catch (error) {
       console.log("Cart count error");
     }
   };
 
   const fetchWishlist = async () => {
+
     try {
-      const res = await axios.get("http://localhost:5000/api/user/wishlist", {
-        withCredentials: true,
-      });
+
+      const res = await axios.get(
+        "http://localhost:5000/api/user/wishlist",
+        { withCredentials: true }
+      );
+
       const items = res.data.data || [];
+
       setWishlistCount(items.length);
-    } catch {
+
+    } catch (error) {
       console.log("Wishlist error");
     }
   };
@@ -88,36 +99,42 @@ function Router() {
   }, []);
 
   return (
+
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+
       <TrackVisit />
+
       {!isAdminRoute && <ModernNavigation />}
+
       <ScrollToTop />
 
       <main className="flex-1">
+
         <Switch>
-          {/* Public Routes */}
+
+          {/* PUBLIC ROUTES */}
+
           <Route path="/" component={Home} />
           <Route path="/collections" component={Collections} />
+          <Route path="/collections/:slug" component={CollectionDetail} />
+          <Route path="/product/:slug" component={ProductDetail} />
+          <Route path="/category/:slug" component={CategoryPage} />
+
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/stories" component={Stories} />
-          <Route path="/orders" component={OrdersPage} />
           <Route path="/verify" component={Verify} />
 
-          <Route path="/collections/:slug" component={CollectionDetail} />
-          <Route path="/product/:slug" component={ProductDetail} />
-          <Route path="/category/:slug">
-            <CategoryPage />
-          </Route>
-          <Route path="/wishlist">
-            <WishlistPage />
-          </Route>
-          <Route path="/cart">
-            <CartPage />
-          </Route>
+          <Route path="/wishlist" component={WishlistPage} />
+          <Route path="/cart" component={CartPage} />
 
-          {/* Admin Routes */}
+
+          {/* ADMIN LOGIN */}
+
           <Route path="/admin/login" component={AdminLogin} />
+
+
+          {/* ADMIN PANEL */}
 
           <Route path="/admin/dashboard">
             <AdminLayout>
@@ -137,9 +154,9 @@ function Router() {
             </AdminLayout>
           </Route>
 
-          <Route path="/admin/edit-collection/:slug">
+          <Route path="/admin/categories">
             <AdminLayout>
-              <AddCollection />
+              <AdminCategories />
             </AdminLayout>
           </Route>
 
@@ -149,45 +166,15 @@ function Router() {
             </AdminLayout>
           </Route>
 
-          <Route path="/admin/add-products">
+          <Route path="/admin/add-product">
             <AdminLayout>
               <AdminAddProducts />
-            </AdminLayout>
-          </Route>
-
-          <Route path="/admin/edit-products/:slug">
-            <AdminLayout>
-              <AdminAddProducts />
-            </AdminLayout>
-          </Route>
-
-          <Route path="/admin/categories">
-            <AdminLayout>
-              <AdminCategories />
-            </AdminLayout>
-          </Route>
-
-          <Route path="/admin/add-categories">
-            <AdminLayout>
-              <AdminAddCategory />
-            </AdminLayout>
-          </Route>
-
-          <Route path="/admin/edit-category/:slug">
-            <AdminLayout>
-              <AdminAddCategory />
             </AdminLayout>
           </Route>
 
           <Route path="/admin/inquiries">
             <AdminLayout>
               <InquiriesPage />
-            </AdminLayout>
-          </Route>
-
-          <Route path="/admin/inquiries/:id">
-            <AdminLayout>
-              <InquiryDetailPage />
             </AdminLayout>
           </Route>
 
@@ -203,8 +190,13 @@ function Router() {
             </AdminLayout>
           </Route>
 
+
+          {/* FALLBACK */}
+
           <Route component={NotFound} />
+
         </Switch>
+
       </main>
 
       <ModernFooter />
@@ -213,15 +205,25 @@ function Router() {
 }
 
 function App() {
+
   return (
+
     <ThemeProvider defaultTheme="dark" storageKey="ishwar-theme">
+
       <QueryClientProvider client={queryClient}>
+
         <TooltipProvider>
+
           <Toaster position="top-center" />
+
           <Router />
+
         </TooltipProvider>
+
       </QueryClientProvider>
+
     </ThemeProvider>
+
   );
 }
 
